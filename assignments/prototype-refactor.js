@@ -16,7 +16,7 @@ class GameObject{
     }
 
     destroy(){
-        return `${this.name} was removed from the game.`;
+        return `${this.name} has died.`;
     }
 }
 
@@ -112,7 +112,7 @@ class Villian extends Humanoid{
     }
 
     attack(target){
-        let magicStrength = Math.ceil(Math.ceil(Math.random() * 5) + this.magic);
+        let magicStrength = Math.ceil(Math.ceil(Math.random() * 4) + this.magic);
         if (this.healthPoints <= 0) {
           console.log(`${this.name} is dead and can't attack.`);
           return;
@@ -121,9 +121,11 @@ class Villian extends Humanoid{
           return;
         } else {      
           console.log(`${this.name} flares ${target.name} for ${magicStrength} damage.`);
-          target.healthPoints = target.healthPoints -= (Math.random() * magicStrength);
+          target.healthPoints = target.healthPoints -= magicStrength;
           if (target.healthPoints <= 0) {
             console.log(target.destroy());
+          } else {
+            console.log(`${target.name} has ${target.healthPoints} health left.`);
           }
         }    
     }
@@ -136,7 +138,7 @@ class Hero extends Humanoid{
     }
 
     attack(target){
-        let attackStrength = (Math.ceil(Math.random() * 4) + this.strength);
+        let attackStrength = (Math.ceil(Math.random() * 5) + this.strength);
         if (this.healthPoints <= 0) {
           console.log(`${this.name} is dead and can't attack.`);
           return;
@@ -145,9 +147,11 @@ class Hero extends Humanoid{
           return;
         } else {      
           console.log(`${this.name} cleaves ${target.name} for ${attackStrength} damage.`);
-          target.healthPoints = target.healthPoints -= (Math.random() * attackStrength);
+          target.healthPoints = target.healthPoints -= attackStrength;
           if (target.healthPoints <= 0) {
             console.log(target.destroy());
+          } else {
+            console.log(`${target.name} has ${target.healthPoints} health left.`);
           }
         }    
     }
@@ -177,7 +181,7 @@ const hades = new Villian({
         width: 2,
         height: 4,
     },
-    healthPoints: 10,
+    healthPoints: 15,
     name: 'Emet Selch',
     team: 'Ascians',
     weapons: [
