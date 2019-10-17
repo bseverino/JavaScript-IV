@@ -104,3 +104,99 @@ console.log(archer.language); // Elvish
 console.log(archer.greet()); // Lilith offers a greeting in Elvish.
 console.log(mage.takeDamage()); // Bruce took damage.
 console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+class Villian extends Humanoid{
+    constructor(vilAttr){
+        super(vilAttr);
+        this.magic = vilAttr.magic
+    }
+
+    attack(target){
+        let magicStrength = Math.ceil(Math.ceil(Math.random() * 5) + this.magic);
+        if (this.healthPoints <= 0) {
+          console.log(`${this.name} is dead and can't attack.`);
+          return;
+        } else if (target.healthPoints <= 0) {
+          console.log (`${this.name} tries to flare ${target.name}, but ${target.name} is already dead.`);
+          return;
+        } else {      
+          console.log(`${this.name} flares ${target.name} for ${magicStrength} damage.`);
+          target.healthPoints = target.healthPoints -= (Math.random() * magicStrength);
+          if (target.healthPoints <= 0) {
+            console.log(target.destroy());
+          }
+        }    
+    }
+}
+
+class Hero extends Humanoid{
+    constructor(herAttr){
+        super(herAttr);
+        this.strength = herAttr.strength
+    }
+
+    attack(target){
+        let attackStrength = (Math.ceil(Math.random() * 4) + this.strength);
+        if (this.healthPoints <= 0) {
+          console.log(`${this.name} is dead and can't attack.`);
+          return;
+        } else if (target.healthPoints <= 0) {
+          console.log (`${this.name} tries to cleave ${target.name}, but ${target.name} is already dead.`);
+          return;
+        } else {      
+          console.log(`${this.name} cleaves ${target.name} for ${attackStrength} damage.`);
+          target.healthPoints = target.healthPoints -= (Math.random() * attackStrength);
+          if (target.healthPoints <= 0) {
+            console.log(target.destroy());
+          }
+        }    
+    }
+}
+
+const wol = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 12,
+    name: 'Warrior of Light',
+    team: 'Scions of the Seventh Dawn',
+    weapons: [
+      'Axe'
+    ],
+    language: 'Common',
+    strength: 3
+  });
+
+const hades = new Villian({
+    createdAt: new Date(),
+    dimensions: {
+        length: 1,
+        width: 2,
+        height: 4,
+    },
+    healthPoints: 10,
+    name: 'Emet Selch',
+    team: 'Ascians',
+    weapons: [
+        'Grimoire',
+        'Gun'
+    ],
+    language: 'Amaurotine',
+    magic: 3
+});
+
+const battle = (playerOne, playerTwo) => {
+    do {
+        playerOne.attack(playerTwo);
+        if (playerTwo.healthPoints > 0){
+            playerTwo.attack(playerOne);
+        }
+    }
+
+    while (playerOne.healthPoints > 0 && playerTwo.healthPoints > 0);
+}
+
+battle(wol, hades);

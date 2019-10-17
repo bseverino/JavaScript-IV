@@ -27,6 +27,10 @@ class Instructor extends Person{
     grade(student, subject){
         return `${student.name} receives a perfect score on ${subject}.`;
     }
+
+    modifyGrade(student){
+        student.grade += (Math.floor(Math.random() * 30) - 20);
+    }
 }
 
 class Student extends Person{
@@ -34,7 +38,8 @@ class Student extends Person{
         super(stuAttr);
         this.previousBackground = stuAttr.previousBackground,
         this.className = stuAttr.className,
-        this.favSubjects = stuAttr.favSubjects
+        this.favSubjects = stuAttr.favSubjects,
+        this.grade = stuAttr.grade
     }
 
     listsSubjects(){
@@ -49,6 +54,14 @@ class Student extends Person{
 
     sprintChallenge(subject){
         return `${this.name} has begun sprint challenge on ${subject}.`;
+    }
+
+    graduate(){
+        if (this.grade >= 70) {
+            return `${this.name} has graduated with a grade of ${this.grade}%!`;
+        } else {
+            return `${this.name} received a grade of ${this.grade}% and did not graduate...`;
+        }
     }
 }
 
@@ -83,7 +96,8 @@ const studentOne = new Student({
     location: 'Connecticut',
     previousBackground: 'art school',
     className: 'WEB25',
-    favSubjects: ['HTML', 'CSS', 'JavaScript']
+    favSubjects: ['HTML', 'CSS', 'JavaScript'],
+    grade: 80
 })
 
 const pmOne = new ProjectManager({
@@ -104,3 +118,5 @@ console.log(studentOne.PRAssignment('JavaScript IV'));
 console.log(studentOne.sprintChallenge('JavaScript Fundamentals'));
 console.log(pmOne.standUp('web25_jimmy'));
 console.log(pmOne.debugsCode(studentOne, 'Javascript II'));
+instructorOne.modifyGrade(studentOne);
+console.log(studentOne.graduate());
