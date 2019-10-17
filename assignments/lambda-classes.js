@@ -103,3 +103,4 @@ studentOne.listsSubjects();
 console.log(studentOne.PRAssignment('JavaScript IV'));
 console.log(studentOne.sprintChallenge('JavaScript Fundamentals'));
 console.log(pmOne.standUp('web25_jimmy'));
+console.log(pmOne.debugsCode(studentOne, 'Javascript II'));
